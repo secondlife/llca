@@ -1,0 +1,3 @@
+AUTOBUILD_PLATFORM=common
+build_Darwin=false
+build_CYGWIN=false
