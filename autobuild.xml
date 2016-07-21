@@ -67,7 +67,7 @@
       <key>license</key>
       <string>mit</string>
       <key>license_file</key>
-      <string>ca-license.txt</string>
+      <string>LICENSES/ca-license.txt</string>
       <key>name</key>
       <string>llca</string>
       <key>platforms</key>
