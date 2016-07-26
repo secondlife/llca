@@ -75,7 +75,7 @@
         <key>common</key>
         <map>
           <key>build_directory</key>
-          <string>.</string>
+          <string>stage</string>
           <key>configurations</key>
           <map>
             <key>default</key>
@@ -84,7 +84,7 @@
               <map>
                 <key>arguments</key>
                 <array>
-                  <string>./build-cmd.sh</string>
+                  <string>../build-cmd.sh</string>
                 </array>
                 <key>command</key>
                 <string>bash</string>

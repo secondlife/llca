@@ -1,7 +1,2 @@
 syntax: glob
-packages/
-certdata.txt
-ca-bundle.crt
-VERSION.txt
-
-autobuild-package.xml
+stage/
