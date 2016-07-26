@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 
 exec 3>&1; export BASH_XTRACEFD=3; set -x
- 
+
+set -e
+
 # This fetches an xml file that contains a pointer to the latest curl release tarball
 curl -s 'https://curl.haxx.se/metalink.cgi?curl=tar.gz' > metalink.xml
 
 # The use of a default xml namespace confuses the xmllint xpath processor, so remove it
 xmllint --format metalink.xml | sed 's/xmlns="urn:ietf:params:xml:ns:metalink"//' > metalink_nons.xml
 
-# Extract the name url of the latest release tarball
+# Extract the name and url of the latest release tarball
 curl_release_tarball_name=$(xmllint --xpath 'string(/metalink/file/@name)' metalink_nons.xml)
 curl_release_tarball_url=$(xmllint --xpath '/metalink/file/url[1]/text()' metalink_nons.xml)
 
