@@ -4,7 +4,9 @@
     <key>package_description</key>
     <map>
       <key>copyright</key>
-      <string>Copyright (c) 2016, Linden Research, Inc.</string>
+      <string>Copyright (c) 2016, Linden Research, Inc.
+from the data provided by the Mozilla NSS Project.
+      </string>
       <key>license</key>
       <string>mit</string>
       <key>license_file</key>
