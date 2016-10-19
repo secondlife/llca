@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-exec 3>&1; export BASH_XTRACEFD=3; set -x
-
 set -e
 
 # This fetches an xml file that contains a pointer to the latest curl release tarball
