@@ -1,0 +1,70 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            de:29:a4:d1:b0:8f:ac:88
+    Signature Algorithm: md5WithRSAEncryption
+        Issuer: C=US, ST=California, L=San Francisco, O=Linden Lab, Inc., OU=Linden Lab Certificate Authority, CN=Linden Lab Certificate Authority/emailAddress=ca@lindenlab.com
+        Validity
+            Not Before: Apr 21 02:40:31 2005 GMT
+            Not After : Apr 16 02:40:31 2025 GMT
+        Subject: C=US, ST=California, L=San Francisco, O=Linden Lab, Inc., OU=Linden Lab Certificate Authority, CN=Linden Lab Certificate Authority/emailAddress=ca@lindenlab.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (1024 bit)
+                Modulus:
+                    00:a5:e1:d4:c4:e1:b9:c7:53:6c:c8:3d:6d:80:4e:
+                    ac:09:bc:c9:69:ec:df:66:28:8c:1d:0f:45:f6:ea:
+                    f2:b5:23:7a:91:21:4e:6d:ff:d7:7b:34:bb:7f:7d:
+                    51:cd:b4:da:fe:1e:8d:c1:a1:90:80:d6:25:97:76:
+                    35:93:05:a0:aa:e1:99:17:f1:18:74:8a:3c:2b:85:
+                    69:70:b7:8e:1d:25:44:40:a3:ee:4f:05:a0:f9:1c:
+                    99:a3:e3:4b:2a:1d:ac:31:43:51:4b:af:f8:2d:3a:
+                    a1:82:68:23:ea:e4:f1:11:32:6a:5f:4d:c2:01:ef:
+                    a8:2c:ce:ad:9b:62:4d:70:1d
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Subject Key Identifier: 
+                3B:5C:CA:D9:ED:5F:D7:03:B5:7C:70:23:AB:A0:D3:26:86:CA:0E:B7
+            X509v3 Authority Key Identifier: 
+                keyid:3B:5C:CA:D9:ED:5F:D7:03:B5:7C:70:23:AB:A0:D3:26:86:CA:0E:B7
+                DirName:/C=US/ST=California/L=San Francisco/O=Linden Lab, Inc./OU=Linden Lab Certificate Authority/CN=Linden Lab Certificate Authority/emailAddress=ca@lindenlab.com
+                serial:DE:29:A4:D1:B0:8F:AC:88
+
+            X509v3 Basic Constraints: 
+                CA:TRUE
+    Signature Algorithm: md5WithRSAEncryption
+         3f:66:48:1f:bf:01:d8:aa:4d:54:20:02:99:4b:79:0c:0b:1c:
+         f4:1e:f6:2e:11:0b:6f:8b:09:ee:c4:0d:fd:08:82:7a:e5:9a:
+         33:b3:6f:04:83:56:95:f7:f6:3e:39:fe:d3:9d:68:56:f9:4d:
+         c9:df:fc:03:fc:68:21:68:01:a2:28:ae:af:32:7f:60:24:12:
+         1d:05:7f:fd:7b:a7:9f:df:b5:46:ca:23:84:14:58:e7:50:86:
+         ee:93:44:56:b7:2d:28:ac:de:fa:ab:f9:48:ff:18:c2:8b:5e:
+         57:48:0f:d5:4a:ad:a3:e2:f9:a7:c1:f6:5c:3d:30:ee:82:59:
+         90:d4
+-----BEGIN CERTIFICATE-----
+MIIEUDCCA7mgAwIBAgIJAN4ppNGwj6yIMA0GCSqGSIb3DQEBBAUAMIHMMQswCQYD
+VQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZyYW5j
+aXNjbzEZMBcGA1UEChMQTGluZGVuIExhYiwgSW5jLjEpMCcGA1UECxMgTGluZGVu
+IExhYiBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkxKTAnBgNVBAMTIExpbmRlbiBMYWIg
+Q2VydGlmaWNhdGUgQXV0aG9yaXR5MR8wHQYJKoZIhvcNAQkBFhBjYUBsaW5kZW5s
+YWIuY29tMB4XDTA1MDQyMTAyNDAzMVoXDTI1MDQxNjAyNDAzMVowgcwxCzAJBgNV
+BAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1TYW4gRnJhbmNp
+c2NvMRkwFwYDVQQKExBMaW5kZW4gTGFiLCBJbmMuMSkwJwYDVQQLEyBMaW5kZW4g
+TGFiIENlcnRpZmljYXRlIEF1dGhvcml0eTEpMCcGA1UEAxMgTGluZGVuIExhYiBD
+ZXJ0aWZpY2F0ZSBBdXRob3JpdHkxHzAdBgkqhkiG9w0BCQEWEGNhQGxpbmRlbmxh
+Yi5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAKXh1MThucdTbMg9bYBO
+rAm8yWns32YojB0PRfbq8rUjepEhTm3/13s0u399Uc202v4ejcGhkIDWJZd2NZMF
+oKrhmRfxGHSKPCuFaXC3jh0lRECj7k8FoPkcmaPjSyodrDFDUUuv+C06oYJoI+rk
+8REyal9NwgHvqCzOrZtiTXAdAgMBAAGjggE2MIIBMjAdBgNVHQ4EFgQUO1zK2e1f
+1wO1fHAjq6DTJobKDrcwggEBBgNVHSMEgfkwgfaAFDtcytntX9cDtXxwI6ug0yaG
+yg63oYHSpIHPMIHMMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEW
+MBQGA1UEBxMNU2FuIEZyYW5jaXNjbzEZMBcGA1UEChMQTGluZGVuIExhYiwgSW5j
+LjEpMCcGA1UECxMgTGluZGVuIExhYiBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkxKTAn
+BgNVBAMTIExpbmRlbiBMYWIgQ2VydGlmaWNhdGUgQXV0aG9yaXR5MR8wHQYJKoZI
+hvcNAQkBFhBjYUBsaW5kZW5sYWIuY29tggkA3imk0bCPrIgwDAYDVR0TBAUwAwEB
+/zANBgkqhkiG9w0BAQQFAAOBgQA/ZkgfvwHYqk1UIAKZS3kMCxz0HvYuEQtviwnu
+xA39CIJ65Zozs28Eg1aV9/Y+Of7TnWhW+U3J3/wD/GghaAGiKK6vMn9gJBIdBX/9
+e6ef37VGyiOEFFjnUIbuk0RWty0orN76q/lI/xjCi15XSA/VSq2j4vmnwfZcPTDu
+glmQ1A==
+-----END CERTIFICATE-----

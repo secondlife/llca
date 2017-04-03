@@ -24,4 +24,7 @@ echo "${mozilla_bundle_time:-$(date "+%Y%m%d%H%M")}.${revision:-0}" > VERSION.tx
 # Run the script provided by curl that downloads and converts the Mozilla certificate authorities
 perl ./mk-ca-bundle.pl -m -v -t
 
+# Add the LindenLab self-signed CA (used for simhost certificates and other *.<grid>.lindenlab.com certs)
+cat ../LindenLab.crt >> ca-bundle.crt
+
 cp -r ../LICENSES .
