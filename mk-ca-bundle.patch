@@ -1,0 +1,76 @@
+--- mk-ca-bundle.pl	2020-04-27 11:42:27.000000000 -0400
++++ mk-ca-bundle.pl.1	2020-06-02 14:18:49.000000000 -0400
+@@ -39,6 +39,8 @@
+ use List::Util;
+ use Text::Wrap;
+ use Time::Local;
++use File::Temp qw(tempfile);
++use Date::Parse qw(str2time);
+ my $MOD_SHA = "Digest::SHA";
+ eval "require $MOD_SHA";
+ if ($@) {
+@@ -289,6 +291,52 @@
+   return 0;
+ }
+ 
++sub cert_expire_future($$) {
++  my ($name, $pem_cert) = @_;
++  my ($fh, $tmpname) = tempfile();
++  my $start_ok = 0;
++  my $expire_ok = 0;
++  print $fh $pem_cert;
++  close $fh;
++  my $now = time();
++  my $dates_pid = open(DATES, "$openssl x509 -in $tmpname -noout -dates|");
++  my $start_str;
++  my $expire_str;
++  while (<DATES>) {
++      chomp;
++      if ( s/^notAfter=// ) {
++        $expire_str = $_;
++      }
++      if ( s/^notBefore=// ) {
++        $start_str = $_;
++      }
++  }
++  if (!$start_str) {
++    print "Warning: $name no start date found\n"
++  }
++  else {
++    my $starts = str2time($start_str);
++    if ( $now > $starts ) {
++      $start_ok = 1;
++    } else {
++      print "$name is not valid before $start_str\n";
++    }
++  }
++
++  if (!defined $expire_str) {
++      print "Warning: $name no expiration date found\n"
++  }
++  else {
++    my $expires = str2time($expire_str);
++    if ( $now < $expires ) {
++      $expire_ok = 1;
++    } else {
++      print "$name is not valid after $expire_str\n";
++    }
++  }          
++  return ($start_ok == 1 && $expire_ok == 1);
++}
++
+ my $crt = $ARGV[0] || 'ca-bundle.crt';
+ (my $txt = $url) =~ s@(.*/|\?.*)@@g;
+ 
+@@ -541,6 +589,11 @@
+       my $pem = "-----BEGIN CERTIFICATE-----\n"
+               . $encoded
+               . "-----END CERTIFICATE-----\n";
++      if (!cert_expire_future($caname, $pem)) {
++          $skipnum++;
++          report "Skipping: $caname time not valid" if ($opt_v);
++          next;
++      }
+       print CRT "\n$caname\n";
+       print CRT @precert if($opt_m);
+       my $maxStringLength = length(decode('UTF-8', $caname, Encode::FB_CROAK | Encode::LEAVE_SRC));

@@ -26,7 +26,7 @@ ${AUTOBUILD} package --results-file $(native_path "$package_results")
 
 python_cmd "$helpers/codeticket.py" addoutput "Autobuild Package" $(native_path "${autobuild_package_filename}") > output.url
 
-output_url=$(cat output.url)
+output_url=$(<output.url)
 
 cat >>install_cmd.sh <<EOF
 \${AUTOBUILD:-autobuild} installables edit '${autobuild_package_name}' url='${output_url}' hash='${autobuild_package_md5}'
