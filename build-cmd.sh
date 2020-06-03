@@ -37,7 +37,7 @@ echo "$llca_version" > VERSION.txt
 perl ./mk-ca-bundle.pl -m -v -t -n -f
 
 # Verify and add the LindenLab self-signed CA (used for simhost certificates and other *.<grid>.lindenlab.com certs)
-openssl verify -verbose -CAfile ../LindenLab.crt -no-CApath ../LindenLab.crt
+openssl verify -verbose -CAfile ../LindenLab.crt ../LindenLab.crt
 cat ../LindenLab.crt >> ca-bundle.crt
 
 # Record when this was built in an easy way to compare; see check-ca-bundle-age.sh
