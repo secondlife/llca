@@ -53,7 +53,7 @@ if [ "${Action}" = "CHECK" ]
 then
     if [ -d "$Packages_Dir" ]
     then
-        max_ca_bundle_seconds=$(( 60 * 60 * 24 * $Max_CA_Bundle_Days ))
+        max_ca_bundle_seconds=$(( 60 * 60 * 24 * ${Max_CA_Bundle_Days} ))
 
         now=$(date '+%s')
 
@@ -65,10 +65,10 @@ then
 
             if [ $now -gt $(($bundle_built + $max_ca_bundle_seconds)) ]
             then
-                echo "The certificate bundle is more than $max_ca_bundle_days old: failed" 1>&2
+                echo "The certificate bundle is more than ${Max_CA_Bundle_Days} days old: failed" 1>&2
                 ExitStatus=1
             else
-                echo "The certificate bundle is less than $max_ca_bundle_days old: passed." 
+                echo "The certificate bundle is less than ${Max_CA_Bundle_Days} days old: ok." 
             fi
         else
             echo "No build time record found at '$build_time_file'" 1>&2
