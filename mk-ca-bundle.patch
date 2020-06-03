@@ -1,5 +1,5 @@
---- mk-ca-bundle.pl	2020-04-27 11:42:27.000000000 -0400
-+++ mk-ca-bundle.pl.1	2020-06-02 14:18:49.000000000 -0400
+--- mk-ca-bundle.pl.old	2020-04-27 11:42:27.000000000 -0400
++++ mk-ca-bundle.pl	2020-06-03 18:00:08.000000000 -0400
 @@ -39,6 +39,8 @@
  use List::Util;
  use Text::Wrap;
@@ -9,7 +9,25 @@
  my $MOD_SHA = "Digest::SHA";
  eval "require $MOD_SHA";
  if ($@) {
-@@ -289,6 +291,52 @@
+@@ -199,9 +201,15 @@
+ HELP_MESSAGE() if ($opt_h);
+ 
+ sub report($@) {
+-  my $output = shift;
++    my $output = shift;
+ 
+-  print STDERR $output . "\n" unless $opt_q;
++    print $output . "\n" unless $opt_q;
++}
++
++sub problem($@) {
++    my $output = shift;
++
++    print STDERR $output . "\n";
+ }
+ 
+ sub is_in_list($@) {
+@@ -289,6 +297,52 @@
    return 0;
  }
  
@@ -62,15 +80,118 @@
  my $crt = $ARGV[0] || 'ca-bundle.crt';
  (my $txt = $url) =~ s@(.*/|\?.*)@@g;
  
-@@ -541,6 +589,11 @@
+@@ -316,18 +370,18 @@
+           report "Downloaded $txt";
+         }
+         else {
+-          report "Failed downloading via HTTPS with curl";
++          problem "Failed downloading via HTTPS with curl";
+           if(-e $txt && !unlink($txt)) {
+-            report "Failed to remove '$txt': $!";
++            problem "Failed to remove '$txt': $!";
+           }
+         }
+       }
+       else {
+-        report "curl lacks https support";
++        problem "curl lacks https support";
+       }
+     }
+     else {
+-      report "curl not found";
++      problem "curl not found";
+     }
+   }
+ 
+@@ -338,12 +392,12 @@
+       $url =~ s/^https:\/\//http:\/\//i;
+     }
+     if(!$opt_k) {
+-      report "URLs other than HTTPS are disabled by default, to enable use -k";
++      problem "URLs other than HTTPS are disabled by default, to enable use -k";
+       exit 1;
+     }
+     report "Get certdata with LWP!";
+     if(!defined(${LWP::UserAgent::VERSION})) {
+-      report "LWP is not available (LWP::UserAgent not found)";
++      problem "LWP is not available (LWP::UserAgent not found)";
+       exit 1;
+     }
+     my $ua  = new LWP::UserAgent(agent => "$0/$version");
+@@ -358,7 +412,7 @@
+       report "Downloaded $txt";
+     }
+     if(!$resp || $resp->code !~ /^(?:200|304)$/) {
+-      report "Unable to download latest data: "
++      problem "Unable to download latest data: "
+         . ($resp? $resp->code . ' - ' . $resp->message : "LWP failed");
+       exit 1 if -e $crt || ! -r $txt;
+     }
+@@ -379,7 +433,7 @@
+ if(!$opt_f && $oldhash eq $newhash) {
+     report "Downloaded file identical to previous run\'s source file. Exiting";
+     if($opt_u && -e $txt && !unlink($txt)) {
+-        report "Failed to remove $txt: $!\n";
++        problem "Failed to remove $txt: $!\n";
+     }
+     exit;
+ }
+@@ -466,7 +520,7 @@
+           }
+           # A trailing Z in the timestamp signifies UTC
+           if($timestamp[12] ne "Z") {
+-              report "distrust date stamp is not using UTC";
++              problem "distrust date stamp is not using UTC";
+           }
+           # Example date: 200617000000Z
+           # Means 2020-06-17 00:00:00 UTC
+@@ -480,7 +534,7 @@
+           if(time >= $distrustat) {
+               # not trusted anymore
+               $skipnum++;
+-              report "Skipping: $caname is not trusted anymore" if ($opt_v);
++              problem "Skipping: $caname is not trusted anymore" if ($opt_v);
+               $valid = 0;
+           }
+           else {
+@@ -516,9 +570,9 @@
+       last if (/^#/);
+       if (/^CKA_TRUST_([A-Z_]+)\s+CK_TRUST\s+CKT_NSS_([A-Z_]+)\s*$/) {
+         if ( !is_in_list($1,@valid_mozilla_trust_purposes) ) {
+-          report "Warning: Unrecognized trust purpose for cert: $caname. Trust purpose: $1. Trust Level: $2";
++          problem "Warning: Unrecognized trust purpose for cert: $caname. Trust purpose: $1. Trust Level: $2";
+         } elsif ( !is_in_list($2,@valid_mozilla_trust_levels) ) {
+-          report "Warning: Unrecognized trust level for cert: $caname. Trust purpose: $1. Trust Level: $2";
++          problem "Warning: Unrecognized trust level for cert: $caname. Trust purpose: $1. Trust Level: $2";
+         } else {
+           push @{$trust_purposes_by_level{$2}}, $1;
+         }
+@@ -527,7 +581,7 @@
+ 
+     if ( !should_output_cert(%trust_purposes_by_level) ) {
+       $skipnum ++;
+-      report "Skipping: $caname" if ($opt_v);
++      problem "Skipping: $caname" if ($opt_v);
+     } else {
+       my $data = $cka_value;
+       $cka_value = "";
+@@ -541,6 +595,11 @@
        my $pem = "-----BEGIN CERTIFICATE-----\n"
                . $encoded
                . "-----END CERTIFICATE-----\n";
 +      if (!cert_expire_future($caname, $pem)) {
 +          $skipnum++;
-+          report "Skipping: $caname time not valid" if ($opt_v);
++          problem "Skipping: $caname time not valid" if ($opt_v);
 +          next;
 +      }
        print CRT "\n$caname\n";
        print CRT @precert if($opt_m);
        my $maxStringLength = length(decode('UTF-8', $caname, Encode::FB_CROAK | Encode::LEAVE_SRC));
+@@ -604,6 +663,6 @@
+     rename "$crt.~", $crt or die "Failed to rename $crt.~ to $crt: $!\n";
+ }
+ if($opt_u && -e $txt && !unlink($txt)) {
+-  report "Failed to remove $txt: $!\n";
++  problem "Failed to remove $txt: $!\n";
+ }
+ report "Done ($certnum CA certs processed, $skipnum skipped).";
