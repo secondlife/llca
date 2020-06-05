@@ -5,7 +5,8 @@
 ###
 
 Action="CHECK"
-Max_CA_Bundle_Days=90
+Max_CA_Bundle_Days_DEFAULT=90
+Max_CA_Bundle_Days=${Max_CA_Bundle_Days_DEFAULT}
 Packages_Dir=
 ExitStatus=0
 
@@ -88,11 +89,12 @@ then
 
 Usage:
     
-    check-ca-bundle-age {-p | --packages} <packages-directory> [ -d | -days <maximum-ca-package-days> ]
+    check-ca-bundle-age {-p | --packages} <packages-directory> [ -d | --days <maximum-ca-package-days> ]
     
-    Verify that the llca package in the packages-directory was build no more than maximum-ca-package-days ago.
+    Verify that the llca package in the packages-directory was built no more than maximum-ca-package-days ago.
     
-    If not specified, maximum-ca-package-days is $Max_CA_Bundle_Days
+    If not specified, maximum-ca-package-days is $Max_CA_Bundle_Days_DEFAULT
+    The packages-directory must be specified.
 
 USAGE
 fi
