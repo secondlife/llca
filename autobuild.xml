@@ -42,6 +42,8 @@
           <key>manifest</key>
           <array>
             <string>ca-bundle.crt</string>
+            <string>bin/check-ca-bundle-age.sh</string>
+            <string>meta/llca/built</string>
           </array>
           <key>name</key>
           <string>common</string>
