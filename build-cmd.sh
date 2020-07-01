@@ -29,7 +29,7 @@ curl -s -L "https://mxr.mozilla.org/mozilla-central/source/security/nss/lib/ckfw
 ls -l certdata.txt
 
 # Use the date/time on which we did this download as the bundle version number
-llca_version="$(date "+%Y%m%d%H%M").${revision:-0}"
+llca_version="${mozilla_bundle_time:=$(date "+%Y%m%d%H%M")}.${revision:-0}"
 echo "Converting certificates for version $llca_version"
 echo "$llca_version" > VERSION.txt
 
