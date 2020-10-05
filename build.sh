@@ -10,7 +10,7 @@ set -e
 
 # add the datetime stamp before setting the revision number in initialize_version
 export mozilla_bundle_time=$(date "+%Y%m%d%H%M")
-echo python_cmd "$helpers/codeticket.py" addinput "Mozilla CA Bundle Timestamp" "${mozilla_bundle_time}"
+python_cmd "$helpers/codeticket.py" addinput "Mozilla CA Bundle Timestamp" "${mozilla_bundle_time}"
 
 initialize_version # sets $revision
 
