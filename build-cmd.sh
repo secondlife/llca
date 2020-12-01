@@ -5,7 +5,7 @@ set -e
 set -x
 
 # Fetch a pointer to the latest curl release tarball from the curl distribution site
-curl -s 'https://curl.haxx.se/metalink.cgi?curl=tar.gz' > metalink.xml
+curl -s 'https://curl.se/metalink.cgi?curl=tar.gz' > metalink.xml
 
 # The use of a default xml namespace confuses the xmllint xpath processor, so remove it
 xmllint --format metalink.xml | sed 's/xmlns="urn:ietf:params:xml:ns:metalink"//' > metalink_no_namespace.xml
