@@ -25,7 +25,7 @@ patch < ../mk-ca-bundle.patch
 
 # Get the certdata.txt file directly from Mozilla (it appears that the location in mk-ca-bundle.pl is not current)
 # see https://www.mozilla.org/en-US/about/governance/policies/security-group/certs/
-curl -s -L "https://dxr.mozilla.org/mozilla-central/source/security/nss/lib/ckfw/builtins/certdata.txt" -o certdata.txt
+curl -s -L "https://dxr.mozilla.org/mozilla-central/source/security/nss/lib/ckfw/builtins/certdata.txt?raw=1" -o certdata.txt
 ls -l certdata.txt
 
 # Use the date/time on which we did this download as the bundle version number
