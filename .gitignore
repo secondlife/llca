@@ -1,2 +1,3 @@
 stage/
 mk-ca-bundle.pl
+*.tar.*
