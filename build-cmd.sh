@@ -14,7 +14,7 @@ echo "Converting certificates for version $llca_version"
 echo "$llca_version" > VERSION.txt
 
 # Run the script provided by curl to convert the Mozilla certificate authorities; do not use it to download
-perl ./mk-ca-bundle.pl -m -v -t -n -f
+perl ../mk-ca-bundle.pl -m -v -t -n -f
 
 # Verify and add the LindenLab self-signed CA (used for simhost certificates and other *.<grid>.lindenlab.com certs)
 openssl verify -verbose -CAfile ../LindenLab.crt ../LindenLab.crt
