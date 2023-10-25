@@ -4,12 +4,6 @@
 set -e
 set -x
 
-# Fetch mk-ca-bundle.pl from github
-curl -s 'https://raw.githubusercontent.com/curl/curl/master/lib/mk-ca-bundle.pl' -o './mk-ca-bundle.pl'
-
-# Patch mk-ca-bundle.pl to add time validity tests
-patch < ../mk-ca-bundle.patch
-
 # Get the certdata.txt file directly from Mozilla (it appears that the location in mk-ca-bundle.pl is not current)
 # see https://www.mozilla.org/en-US/about/governance/policies/security-group/certs/
 curl -s -L "https://hg.mozilla.org/mozilla-central/raw-file/tip/security/nss/lib/ckfw/builtins/certdata.txt" -o certdata.txt
@@ -20,7 +14,7 @@ echo "Converting certificates for version $llca_version"
 echo "$llca_version" > VERSION.txt
 
 # Run the script provided by curl to convert the Mozilla certificate authorities; do not use it to download
-perl ./mk-ca-bundle.pl -m -v -t -n -f
+perl ../mk-ca-bundle.pl -m -v -t -n -f
 
 # Verify and add the LindenLab self-signed CA (used for simhost certificates and other *.<grid>.lindenlab.com certs)
 openssl verify -verbose -CAfile ../LindenLab.crt ../LindenLab.crt
